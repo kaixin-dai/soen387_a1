@@ -5,6 +5,34 @@
     <title>index</title>
 </head>
 <body>
-    <a href="A1Servlet">go to A1Servlet</a>
+
+    <form action = "A1Servlet" method="post">
+        User <input type="text" name = "user">
+        message <textarea name="message" rows="4" cols="50"></textarea>
+        time<input type="text" name = "date">
+        <input type="submit" value="add" name="add">
+    </form>
+
+    <form action = "A1Servlet" method="post">
+        from <input type="text" name = "from">
+        to <input type="text" name = "to">
+        <input type="submit" value="clear" name="clear">
+    </form>
+
+   <form action = "A1Servlet" method="get">
+       from <input type="text" name = "from">
+       to <input type="text" name = "to">
+       format<input type="text" name = "format">
+       <input type="submit" value="download">
+   </form>
+
+
+
+
+
+
+
+
+
 </body>
 </html>
