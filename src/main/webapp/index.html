@@ -2,30 +2,66 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>index</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="chat.css">
 </head>
 <body>
-
-    <form action = "A1Servlet" method="post">
+    <!--
+    <form action = "A1Servlet" method="POST">
         User <input type="text" name = "user">
+        <br>
         message <textarea name="message" rows="4" cols="50"></textarea>
+        <br>
         time<input type="text" name = "date">
+        <br>
+        from <input type="text" name = "from">
+        <br>
+        to <input type="text" name = "to">
+        <br>
+        from <input type="text" name = "from">
+        <br>
+        to <input type="text" name = "to">
+        <br>
+        format<input type="text" name = "format">
+        <br>
         <input type="submit" value="add" name="add">
     </form>
 
-    <form action = "A1Servlet" method="post">
-        from <input type="text" name = "from">
-        to <input type="text" name = "to">
+    <form action = "A1Servlet" method="POST">
+
         <input type="submit" value="clear" name="clear">
     </form>
 
-   <form action = "A1Servlet" method="get">
-       from <input type="text" name = "from">
-       to <input type="text" name = "to">
-       format<input type="text" name = "format">
+   <form action = "A1Servlet" method="POST">
        <input type="submit" value="download">
    </form>
+   -->
+    <div class = "wrapper">
 
+    <div class="chat_area">
+        <ul class="list-unstyled">
+            <li class="left clearfix">
+                <div>jovie</div>
+                <div class="chat-body1_clearfix">
+                    <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia.</p>
+                    <div class="chat_time-pull-right">09:40PM</div>
+                </div>
+            </li>
+        </ul>
+    </div><!--chat_area-->
+
+    <div class="message_write">
+        <textarea class="form-control" placeholder="type a message"></textarea>
+        <div class="clearfix"></div>
+        <div class="chat_bottom">
+            <a href="#" class="pull-left btn btn-clear">Clear</a>
+            <a href="#" class="pull-right btn btn-success">Send</a>
+        </div>
+
+
+    </div>
+
+    </div>
 
 
 
