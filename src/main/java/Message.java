@@ -25,7 +25,7 @@ public class Message {
                 "user='" + user + '\'' +
                 ", text='" + text + '\'' +
                 ", date=" + date +
-                '}';
+                "}\n";
     }
 
     public static Date parseDate(String date) {
