@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.ServletException;
 
 
@@ -48,6 +49,8 @@ public class A1Servlet extends HttpServlet {
         else
             messages = ChatManager.ListMessages();
 
+        HttpSession session = request.getSession();
+
         StringBuilder messagesStr = new StringBuilder();
         if (format.equals("txt")) {
             for (Message message : messages) {
@@ -68,7 +71,10 @@ public class A1Servlet extends HttpServlet {
             response.setContentType("text/xml");
         }
         else {
-            System.err.println("The format must be plain-text or xml.");
+            session.setAttribute("format-error", "format-error");
+
+            response.sendRedirect(request.getContextPath());
+
             return;
         }
 
