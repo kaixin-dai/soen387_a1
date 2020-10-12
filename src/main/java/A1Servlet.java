@@ -73,7 +73,7 @@ public class A1Servlet extends HttpServlet {
             String post;
             System.out.println("Date is :" + date);
 
-            if(date.equals(""))
+            if(date == null)
                 post = ChatManager.PostMessage(user,message);
             else
                 post = ChatManager.PostMessage(user,message,date);
