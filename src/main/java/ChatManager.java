@@ -7,7 +7,7 @@ public class ChatManager {
     //todo anonymous user
     public static String PostMessage(String user, String message){
 
-        if (user.equals("")){
+        if (user.equals("")) {
             user = "anonymous";
         }
 

@@ -13,23 +13,45 @@ import javax.servlet.ServletException;
 @WebServlet(name = "A1Servlet")
 public class A1Servlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String download = request.getParameter("download");
+        String referer = request.getHeader("Referer");
+        if (referer == null) {
+            HttpSession session = request.getSession();
 
+            session.setAttribute("referer-error", "Referer is not present.");
+
+            response.sendRedirect(request.getContextPath());
+
+            return;
+        }
+
+        String download = request.getParameter("download");
         if (download != null)
             downloadMessages(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String post  = request.getParameter("post");
-        String clear = request.getParameter("clear");
+        String referer = request.getHeader("Referer");
+        if (referer == null) {
+            request.getSession().setAttribute("referer-error", "Referer is not present.");
 
+            response.sendRedirect(request.getContextPath());
+
+            return;
+        }
+
+        String post = request.getParameter("post");
         if (post != null)
             postMessage(request, response);
 
+        String clear = request.getParameter("clear");
         if (clear != null)
             clearMessages(request, response);
 
-        response.sendRedirect(request.getContextPath());
+        String refresh = request.getParameter("refresh");
+        if (refresh != null)
+            refresh(request, response);
+
+        response.setHeader("Expires", "0");
     }
 
     private void downloadMessages(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -37,9 +59,11 @@ public class A1Servlet extends HttpServlet {
         String to     = request.getParameter("download-to");
         String format = request.getParameter("download-format");
 
-        String referer = request.getHeader("Referer");
-        if (referer == null) {
-            System.err.println("Referer is not present.");
+        if (!format.equals("") && !format.equals("txt") && !format.equals("xml")) {
+            request.getSession().setAttribute("format-error", "The format must be plain-text or xml.");
+
+            request.getRequestDispatcher("/").forward(request, response);
+
             return;
         }
 
@@ -49,33 +73,22 @@ public class A1Servlet extends HttpServlet {
         else
             messages = ChatManager.ListMessages();
 
-        HttpSession session = request.getSession();
-
         StringBuilder messagesStr = new StringBuilder();
-        if (format.equals("txt")) {
+        if (format.equals("txt") || format.equals("")) {
             for (Message message : messages) {
                 messagesStr.append(message.toString());
             }
 
             response.setHeader("Content-Disposition", "attachment; filename=\"messages.txt\"");
-            response.setHeader("Expires", "0");
             response.setContentType("text/plain");
         }
-        else if (format.equals("xml")) {
+        else {
             for (Message message : messages) {
-                messagesStr.append(convert_xml(message));
+                messagesStr.append(message.toXmlString());
             }
 
             response.setHeader("Content-Disposition", "attachment; filename=\"messages.xml\"");
-            response.setHeader("Expires", "0");
             response.setContentType("text/xml");
-        }
-        else {
-            session.setAttribute("format-error", "format-error");
-
-            response.sendRedirect(request.getContextPath());
-
-            return;
         }
 
         OutputStream outputStream = response.getOutputStream();
@@ -87,36 +100,31 @@ public class A1Servlet extends HttpServlet {
     private void postMessage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String user    = request.getParameter("user");
         String message = request.getParameter("message");
-        String date    = request.getParameter("date");
 
-        String referer = request.getHeader("Referer");
-        if (referer == null) {
-            System.err.println("Referer is not present.");
-            return;
-        }
+        ChatManager.PostMessage(user, message);
 
-        ChatManager.PostMessage(user, message, date);
+        request.setAttribute("messages", ChatManager.ListMessages());
+
+        request.getRequestDispatcher("/").forward(request, response);
     }
 
     private void clearMessages(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String from = request.getParameter("clear-from");
         String to   = request.getParameter("clear-to");
 
-        String referer = request.getHeader("Referer");
-        if (referer == null) {
-            System.err.println("Referer is not present.");
-            return;
-        }
+        if (!from.equals("") && !to.equals(""))
+            ChatManager.ClearChat(from, to);
+        else
+            ChatManager.ClearChat();
 
-        ChatManager.ClearChat(from, to);
+        request.setAttribute("messages", ChatManager.ListMessages());
+
+        request.getRequestDispatcher("/").forward(request, response);
     }
 
-    private String convert_xml(Message message) {
-        return "<message>\n"
-                + "    <user>" + message.user + "</user>\n"
-                + "    <text>" + message.text + "</text>\n"
-                + "    <date>" + message.date + "</date>\n"
-                + "</message>\n"
-                + "\n";
+    private void refresh(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("messages", ChatManager.ListMessages());
+
+        request.getRequestDispatcher("/").forward(request,response);
     }
 }

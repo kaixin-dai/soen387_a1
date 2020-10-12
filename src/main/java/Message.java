@@ -36,4 +36,25 @@ public class Message {
             return null;
         }
     }
+
+    public String toXmlString() {
+        return "<message>\n"
+                + "    <user>" + user + "</user>\n"
+                + "    <text>" + text + "</text>\n"
+                + "    <date>" + date + "</date>\n"
+                + "</message>\n"
+                + "\n";
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public String getUser(){
+        return user;
+    }
+
+    public String getDateString() {
+        return date.toString();
+    }
 }

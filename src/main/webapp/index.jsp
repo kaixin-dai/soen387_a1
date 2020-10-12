@@ -1,4 +1,7 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
+
 
 
 <!DOCTYPE html>
@@ -16,62 +19,68 @@
 
 <body>
     <%
+        String referer_error = (String)session.getAttribute("referer-error");
+        if(referer_error != null) {
+    %>
+    <script type="text/javascript">
+        alert("<%= referer_error %>");
+    </script>
+    <%
+            session.removeAttribute("format_error");
+        }
+    %>
+
+    <%
         String format_error = (String)session.getAttribute("format-error");
         if(format_error != null) {
-            String format_error_message = "The format must be plain-text or xml.";
     %>
             <script type="text/javascript">
-                alert("<%= format_error_message %>");
+                alert("<%= format_error %>");
             </script>
     <%
             session.removeAttribute("format_error");
         }
     %>
 
-    <form action="A1Servlet" method="get">
-        <label for="download-from">From</label>
-        <input type="text" id="download-from" name="download-from">
-
-        <label for="download-to">To</label>
-        <input type="text" id="download-to" name="download-to">
-
-        <label for="download-format">Format</label>
-        <input type="text" id="download-format" name="download-format">
-
-        <input type="submit" name="download" value="download">
-    </form>
-
-    <br>
-
-    <form action="A1Servlet" method="post">
-        <label for="clear-from">From</label>
-        <input type="text" id="clear-from" name="clear-from">
-
-        <label for="clear-to">To</label>
-        <input type="text" id="clear-to" name="clear-to">
-
-        <input type="submit" name="clear" value="clear">
-    </form>
-
     <div class="wrapper">
         <div class="chat_area">
             <ul class="list-unstyled">
-                <li class="left clearfix">
-                    <div>Jovie</div>
-                    <div class="chat-body1_clearfix">
-                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia.</p>
-                        <div class="chat_time-pull-right">09:40PM</div>
-                    </div>
-                </li>
+                <c:forEach var="message" items="${messages}" >
+                    <li class="left clearfix">
+                        <div>${message.user}</div>
+                        <div class="chat-body1_clearfix"><p>${message.text}</p></div>
+                        <div class="chat_time-pull-right">${message.dateString}</div>
+                    </li>
+                </c:forEach>
             </ul>
         </div>
 
         <form class="message_write" action="A1Servlet" method="post">
-            <input type="text" id="user2" name="user" placeholder="Enter your username"> <input type="text" id="date2" name="date" placeholder="Enter date">
+            <input type="text" name="user" placeholder="Enter your username">
 
-            <textarea class="form-control" id="message2" name="message" placeholder="Type a message"></textarea>
+            <textarea class="form-control" name="message" placeholder="Type a message"></textarea>
 
             <input class="pull-right btn btn-success" type="submit" name="post" value="post">
+
+            <input class="pull-right btn btn-success" type="submit" name="refresh" value="refresh">
+        </form>
+
+        <form action="A1Servlet" method= "POST" id="deletehistory">
+            <label for="from_delete">From:</label>
+            <input id="from_delete" name="clear-from" type = "text">
+            <label for="to_delete">To:</label>
+            <input id="to_delete" name="clear-to" type = "text">
+            <input name="clear" class="pull-left btn btn-clear" value="Clear Chat History" type="submit">
+        </form>
+
+        <form action="A1Servlet" method= "GET" id="searchhistory">
+            <label for="from_search">From:</label>
+            <input id="from_search" name = "download-from" type = "text">
+            <label for="to_search">To:</label>
+            <input id="to_search" name = "download-to" type = "text">
+            <label for="format">Format:</label>
+            <input id="format" name = "download-format" type = "text">
+            <input name="download" class="pull-left btn btn-clear" value="Download History" type="submit">
         </form>
     </div>
 </body>
