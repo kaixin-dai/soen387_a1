@@ -6,6 +6,10 @@
   width: 92%;
   height: 100%;
 }
+.seconddiv{
+  border-style: solid;
+  width: 92%;
+}
 .chat-body1_clearfix{
   border-style: ridge;
   border-color: lightslategrey;

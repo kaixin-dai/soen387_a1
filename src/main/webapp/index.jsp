@@ -19,46 +19,10 @@
 </head>
 <body>
 <script type="text/javascript">
-    /*
-    const interval = setInterval(function() {
-        document.getElementById('submitform').submit();
-    }, 1000)
-    //clearInterval(interval);
-    */
 </script>
-<!--
-<form action = "A1Servlet" method="POST">
-    User <input type="text" name = "user">
-    <br>
-    message <textarea name="message" rows="4" cols="50"></textarea>
-    <br>
-    time<input type="text" name = "date">
-    <br>
-    from <input type="text" name = "from">
-    <br>
-    to <input type="text" name = "to">
-    <br>
-    from <input type="text" name = "from">
-    <br>
-    to <input type="text" name = "to">
-    <br>
-    format<input type="text" name = "format">
-    <br>
-    <input type="submit" value="add" name="add">
-</form>
 
-<form action = "A1Servlet" method="POST">
-
-    <input type="submit" value="clear" name="clear">
-</form>
-
-<form action = "A1Servlet" method="POST">
-   <input type="submit" value="download">
-</form>
--->
 <div class = "wrapper">
-
-    <div class="chat_area">
+    <div id=chatarea class="chat_area">
         <div>${list_message[0].text}</div>
         <ul class="list-unstyled">
         <c:forEach var="message" items="${list}" >
@@ -80,8 +44,8 @@
             <form action="A1Servlet" method = "POST" id="submitform">
                 <label for="user">User: </label>
                 <input id="user" name = "user" type = "text">
-                <input name="add" type = "submit" class="pull-right btn btn-success">
-                <input style="visibility: hidden"  name=date type="text" value="2020--10--11" value = "Send">
+                <input name="add" type = "submit" class="pull-right btn btn-success" value="Send">
+                <input name="refresh" class="pull-right btn btn-success" type="submit" value="Refresh">
             </form>
             <form action="A1Servlet" method= "POST" id="deletehistory">
                 <label for="from_delete">From:</label>
