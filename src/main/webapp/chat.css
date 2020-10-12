@@ -1,16 +1,16 @@
-* {
-    margin: auto;
-}
+/** {*/
+/*    margin: auto;*/
+/*}*/
 
 .wrapper {
+    margin: 2.5%;
     border-style: solid;
-    width: 92%;
-    height: 100%;
 }
 
 .chat-body1_clearfix {
-    border-style: ridge;
-    border-color: lightslategrey;
+    padding: 10px;
+    border-radius: 2px;
+    background-color: #DCF8C6;
 }
 
 .chat_area {
@@ -38,11 +38,6 @@
     padding: 10px;
 }
 
-.chat_area .admin_chat .chat-body1 {
-    margin-left: 0;
-    margin-right: 50px;
-}
-
 .chat_area li:last-child {
     padding-bottom: 10px;
 }
@@ -66,11 +61,35 @@
     float: right;
 }
 
-.btn-clear {
-    background-color: lightgrey;
-    color: #000000;
+.btn-success{
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
 }
 
-.form-control {
-    height: 400px;
+.btn-clear {
+    width: 100%;
+    background-color: lightgrey;
+    color: #000000;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+form {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.form-row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.form-group {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.format {
+    text-align: center;
 }

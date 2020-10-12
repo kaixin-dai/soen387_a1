@@ -47,44 +47,76 @@
                 <c:forEach var="message" items="${messages}">
                     <li class="left clearfix">
                         <div>${message.user}</div>
-                        <div class="chat-body1_clearfix"><p>${message.text}</p></div>
+                        <div class="chat-body1_clearfix">${message.text}</div>
                         <div class="chat_time-pull-right">${message.dateString}</div>
                     </li>
                 </c:forEach>
             </ul>
         </div>
 
-        <form class="message_write" action="A1Servlet" method="POST">
-            <input type="text" name="user" placeholder="Enter your username">
+        <form action="A1Servlet" method="POST" class="message_write">
+            <div class="form-row">
+                <div class="form-group col-12">
+                    <label for="message" class="sr-only">Type a message</label>
+                    <textarea class="form-control" id="message" name="message" placeholder="Type a message"></textarea>
+                </div>
+            </div>
 
-            <textarea class="form-control" name="message" placeholder="Type a message"></textarea>
+            <div class="form-row">
+                <div class="form-group col-4">
+                    <label for="user" class="sr-only">Username</label>
+                    <input type="text" class="form-control" id="user" name="user" placeholder="Username">
+                </div>
 
-            <input class="pull-right btn btn-success" type="submit" name="post" value="post">
+                <div class="form-group col-1">
+                    <input class="btn btn-success" type="submit" name="post" value="Post">
+                </div>
 
-            <input class="pull-right btn btn-success" type="submit" name="refresh" value="refresh">
+                <div class="form-group col-2 offset-5">
+                    <input class="btn btn-success" type="submit" name="refresh" value="Refresh Page">
+                </div>
+            </div>
         </form>
 
         <form action="A1Servlet" method="POST">
-            <label for="clear-from">From</label>
-            <input type="text" id="clear-from" name="clear-from">
+            <div class="form-row">
+                <div class="form-group col-5">
+                    <label for="clear-from" class="sr-only">From</label>
+                    <input type="text" class="form-control" id="clear-from" name="clear-from" placeholder="From">
+                </div>
 
-            <label for="clear-to">To:</label>
-            <input type="text" id="clear-to" name="clear-to">
+                <div class="form-group col-5">
+                    <label for="clear-to" class="sr-only">To</label>
+                    <input type="text" class="form-control" id="clear-to" name="clear-to" placeholder="To">
+                </div>
 
-            <input class="pull-left btn btn-clear" type="submit" name="clear" value="Clear History">
+                <div class="form-group col-2">
+                    <input type="submit" class="btn btn-clear" name="clear" value="Clear History">
+                </div>
+            </div>
         </form>
 
         <form action="A1Servlet" method= "GET">
-            <label for="download-from">From</label>
-            <input type="text" id="download-from" name="download-from">
+            <div class="form-row">
+                <div class="form-group col-4">
+                    <label for="download-from" class="sr-only">From</label>
+                    <input type="text" class="form-control" id="download-from" name="download-from" placeholder="From">
+                </div>
 
-            <label for="download-to">To</label>
-            <input type="text" id="download-to" name="download-to">
+                <div class="form-group col-4">
+                    <label for="download-to" class="sr-only">To</label>
+                    <input type="text" class="form-control" id="download-to" name="download-to" placeholder="To">
+                </div>
 
-            <label for="download-format">Format</label>
-            <input type="text" id="download-format" name="download-format">
+                <div class="form-group col-2">
+                    <label for="download-format" class="sr-only">Format</label>
+                    <input type="text" class="form-control format" id="download-format" name="download-format" value="txt">
+                </div>
 
-            <input class="pull-left btn btn-clear" type="submit" name="download" value="Download History">
+                <div class="form-group col-2">
+                    <input class="btn btn-clear" type="submit" name="download" value="Download History">
+                </div>
+            </div>
         </form>
     </div>
 </body>
