@@ -81,7 +81,7 @@
                 <label for="user">User: </label>
                 <input id="user" name = "user" type = "text">
                 <input name="add" type = "submit" class="pull-right btn btn-success">
-                <input style="visibility: hidden"  name=date type="text" value="2020--10--11" value = "Send">
+                <input style="visibility: hidden"  type="text" value="2020--10--11" value = "Send">
             </form>
             <form action="A1Servlet" method= "POST" id="deletehistory">
                 <label for="from_delete">From:</label>
