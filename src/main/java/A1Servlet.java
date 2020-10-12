@@ -10,6 +10,44 @@ import java.util.ArrayList;
 
 @WebServlet(name = "A1Servlet")
 public class A1Servlet extends HttpServlet {
+    
+        protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if(request.getParameter("add") != null){
+
+            String user = request.getParameter("user");
+            String message = request.getParameter("message");
+            String date = request.getParameter("date");
+            String post;
+
+            System.out.println("Date is :" + date);
+
+            if(date.equals(""))
+                post = ChatManager.PostMessage(user,message);
+            else
+                post = ChatManager.PostMessage(user,message,date);
+
+//            request.setAttribute("list",ChatManager.messages);
+//            request.getRequestDispatcher("index.jsp").forward(request,response);
+        }
+
+        else if(request.getParameter("clear") != null){
+            String from = request.getParameter("from");
+            String to = request.getParameter("to");
+
+            System.out.println(from);
+            System.out.println(to);
+
+            if(!from.equals("") && !to.equals(""))
+                ChatManager.ClearChat(from, to);
+            else
+                ChatManager.ClearChat();
+        }
+
+
+        response.sendRedirect("index.html");
+
+    }
+    
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String from = request.getParameter("from");
         String to = request.getParameter("to");
