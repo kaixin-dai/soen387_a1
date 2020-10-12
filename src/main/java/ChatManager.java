@@ -16,7 +16,7 @@ public class ChatManager {
 
         messages.add(m);
 
-        return "User: " + m.user+" Message: " + m.text + " "+ m.date;
+        return "User: " + m.getUser()+" Message: " + m.getText() + " "+ m.getDatestring();
     }
 
     //overloading PostMessage for custom public time
@@ -26,7 +26,7 @@ public class ChatManager {
 
         messages.add(m);
 
-        return "User: " + m.user+" Message: " + m.text + " "+ m.date;
+        return "User: " + m.getUser()+" Message: " + m.getText() + " "+ m.getDatestring();
     }
 
 
@@ -39,7 +39,7 @@ public class ChatManager {
 
         for (int i = 0; i < messages.size(); i++) {
 
-            if(messages.get(i).date.after(start) && messages.get(i).date.before(end)){
+            if(messages.get(i).getDate().after(start) && messages.get(i).getDate().before(end)){
 
                 found_messages.add(messages.get(i));
 
@@ -65,7 +65,7 @@ public class ChatManager {
 
         for (int i = 0; i < messages.size(); i++) {
 
-           if(messages.get(i).date.after(start) && messages.get(i).date.before(end)){
+           if(messages.get(i).getDate().after(start) && messages.get(i).getDate().before(end)){
 
             found_messages.add(messages.get(i));
 

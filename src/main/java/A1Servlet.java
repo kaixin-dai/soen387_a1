@@ -7,18 +7,17 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(name = "A1Servlet")
 public class A1Servlet extends HttpServlet {
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    List<Message> list_messages = new ArrayList<Message>();
 
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String from = request.getParameter("from");
         String to = request.getParameter("to");
         String format = request.getParameter("format");
         ArrayList<Message> messages;
-        System.out.println(from==null);
-        System.out.println(to==null);
-        System.out.println(format==null);
 
         if(!from.equals("") && !to.equals(""))
             messages = ChatManager.ListMessages(from,to);
@@ -45,10 +44,6 @@ public class A1Servlet extends HttpServlet {
         }
 
         System.out.print(post);
-
-
-
-
         response.setContentType("text/xml");
         response.setHeader("Content-Disposition", "attachment; filename=\"messages.txt\"");
         try {
@@ -65,9 +60,9 @@ public class A1Servlet extends HttpServlet {
 
     private String convert_xml(Message m){
         String xml = "<message>" + "\n"
-                    + " <user>"+m.user+"</user>" + "\n"
-                    + " <text>"+m.text+"</text>" + "\n"
-                    + " <date>"+m.date+"</date>" + "\n"
+                    + " <user>"+m.getUser()+"</user>" + "\n"
+                    + " <text>"+m.getText()+"</text>" + "\n"
+                    + " <date>"+m.getDatestring()+"</date>" + "\n"
                     + "</message>\n\n";
 
         return xml;
@@ -78,14 +73,16 @@ public class A1Servlet extends HttpServlet {
         String user = request.getParameter("user");
         String message = request.getParameter("message");
         String date = request.getParameter("date");
-        ArrayList<Message> messages;
-        System.out.println(user==null);
-        System.out.println(message==null);
-        System.out.println(date==null);
+
+        list_messages.add(new Message(user,message,date));
+        System.out.println(user);
+        System.out.println(message);
+        System.out.println(date);
 
         String post = "";
-
-        response.setContentType("text/xml");
+        request.setAttribute("list",list_messages);
+        request.getRequestDispatcher("index.jsp").forward(request,response);
+        //response.setContentType("text/xml");
         //response.setHeader("Content-Disposition", "attachment; filename=\"messages.txt\"");
         try {
             /*
@@ -98,6 +95,14 @@ public class A1Servlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+       list_messages.clear();
+       System.out.println("Here");
+       request.setAttribute("list",list_messages);
+       request.getRequestDispatcher("index.jsp").forward(request,response);
     }
 }
 

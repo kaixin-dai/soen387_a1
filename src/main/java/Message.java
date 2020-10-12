@@ -3,9 +3,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Message {
-    public String user;
-    public String text;
-    public Date date;
+    private String user;
+    private String text;
+    private Date date;
 
     Message(String user, String text){
         this.user = user;
@@ -35,5 +35,20 @@ public class Message {
             System.out.println("Wrong format for Date, should be yyyy-MM-dd");
             return null;
         }
+    }
+
+    public String getDatestring() {
+        return date.toString();
+    }
+    public Date getDate() {
+        return date;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public String getUser(){
+        return user;
     }
 }
