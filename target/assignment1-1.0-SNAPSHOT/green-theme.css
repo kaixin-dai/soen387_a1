@@ -1,15 +1,15 @@
 .switch-theme-form {
-    margin: 5% 5% 1%;
+    margin: 1% 5% 1%;
 }
 
 .wrapper {
-    margin: 1% 5% 5%;
+    margin: 1% 5% 1%;
     border: solid gray;
     border-radius: 0.25rem;
 }
 
 .chat-area {
-    height: 400px;
+    height: 350px;
     overflow-y: auto;
     border-top: solid gray;
 }
