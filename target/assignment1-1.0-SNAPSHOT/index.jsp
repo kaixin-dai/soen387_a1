@@ -25,7 +25,7 @@
         alert("<%= referer_error %>");
     </script>
     <%
-            session.removeAttribute("format_error");
+            session.removeAttribute("referer-error");
         }
     %>
 
@@ -42,38 +42,25 @@
     %>
 
     <div class="wrapper">
-        <div class="chat_area">
-            <ul class="list-unstyled">
-                <c:forEach var="message" items="${messages}">
-                    <li class="left clearfix">
-                        <div>${message.user}</div>
-                        <div class="chat-body1_clearfix">${message.text}</div>
-                        <div class="chat_time-pull-right">${message.dateString}</div>
-                    </li>
-                </c:forEach>
-            </ul>
-        </div>
-
-        <form action="A1Servlet" method="POST" class="message_write">
-            <div class="form-row">
-                <div class="form-group col-12">
-                    <label for="message" class="sr-only">Type a message</label>
-                    <textarea class="form-control" id="message" name="message" placeholder="Type a message"></textarea>
-                </div>
-            </div>
-
+        <form action="A1Servlet" method="GET">
             <div class="form-row">
                 <div class="form-group col-4">
-                    <label for="user" class="sr-only">Username</label>
-                    <input type="text" class="form-control" id="user" name="user" placeholder="Username">
+                    <label for="download-from" class="sr-only">From</label>
+                    <input type="text" class="form-control" id="download-from" name="download-from" placeholder="From">
                 </div>
 
-                <div class="form-group col-1">
-                    <input class="btn btn-success" type="submit" name="post" value="Post">
+                <div class="form-group col-4">
+                    <label for="download-to" class="sr-only">To</label>
+                    <input type="text" class="form-control" id="download-to" name="download-to" placeholder="To">
                 </div>
 
-                <div class="form-group col-2 offset-5">
-                    <input class="btn btn-success" type="submit" name="refresh" value="Refresh Page">
+                <div class="form-group col-2">
+                    <label for="download-format" class="sr-only">Format</label>
+                    <input type="text" class="form-control format" id="download-format" name="download-format" value="txt">
+                </div>
+
+                <div class="form-group col-2">
+                    <input class="btn btn-clear" type="submit" name="download" value="Download History">
                 </div>
             </div>
         </form>
@@ -96,25 +83,36 @@
             </div>
         </form>
 
-        <form action="A1Servlet" method= "GET">
+        <ul class="list-unstyled chat-area">
+            <c:forEach var="message" items="${messages}">
+                <li>
+                    <div>${message.user}</div>
+                    <div class="chat-body">${message.text}</div>
+                    <div class="chat-time">${message.dateString}</div>
+                </li>
+            </c:forEach>
+        </ul>
+
+        <form action="A1Servlet" method="POST">
+            <div class="form-row">
+                <div class="form-group col-12">
+                    <label for="message" class="sr-only">Type a message</label>
+                    <textarea class="form-control" id="message" name="message" placeholder="Type a message"></textarea>
+                </div>
+            </div>
+
             <div class="form-row">
                 <div class="form-group col-4">
-                    <label for="download-from" class="sr-only">From</label>
-                    <input type="text" class="form-control" id="download-from" name="download-from" placeholder="From">
+                    <label for="user" class="sr-only">Username</label>
+                    <input type="text" class="form-control" id="user" name="user" placeholder="Username">
                 </div>
 
-                <div class="form-group col-4">
-                    <label for="download-to" class="sr-only">To</label>
-                    <input type="text" class="form-control" id="download-to" name="download-to" placeholder="To">
+                <div class="form-group col-1">
+                    <input class="btn btn-success" type="submit" name="post" value="Post">
                 </div>
 
-                <div class="form-group col-2">
-                    <label for="download-format" class="sr-only">Format</label>
-                    <input type="text" class="form-control format" id="download-format" name="download-format" value="txt">
-                </div>
-
-                <div class="form-group col-2">
-                    <input class="btn btn-clear" type="submit" name="download" value="Download History">
+                <div class="form-group col-1 offset-6">
+                    <input class="btn btn-success" type="submit" name="refresh" value="Refresh Page">
                 </div>
             </div>
         </form>
