@@ -29,6 +29,12 @@
     float: right;
 }
 
+.btn-primary {
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+}
+
 .btn-success {
     width: 100%;
     padding-left: 0;

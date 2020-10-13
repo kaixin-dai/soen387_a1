@@ -2,6 +2,12 @@
 
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 
+<%
+    String theme = (String)session.getAttribute("theme");
+    if (theme == null)
+        theme = "blue";
+%>
+
 
 <!DOCTYPE html>
 
@@ -10,23 +16,11 @@
 <head>
     <meta charset="UTF-8">
 
-    <title>index</title>
+    <title>Chat Room</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-    <%
-        String theme = (String)session.getAttribute("theme");
-        if (theme == null || theme.equals("blue")) {
-    %>
-        <link rel="stylesheet" href="blue-theme.css">
-    <%
-        }
-        else {
-    %>
-        <link rel="stylesheet" href="green-theme.css">
-    <%
-        }
-    %>
+    <%= "<link rel=\"stylesheet\" href=\"" + (theme.equals("blue") ? "blue-theme.css" : "green-theme.css") + "\">" %>
 </head>
 
 <body>
@@ -127,11 +121,11 @@
                 </div>
 
                 <div class="form-group col-1">
-                    <input class="btn btn-success" type="submit" name="post" value="Post">
+                    <%= "<input class=\"btn " + (theme.equals("blue") ? "btn-primary" : "btn-success") + "\" type=\"submit\" name=\"post\" value=\"Post\">" %>
                 </div>
 
                 <div class="form-group col-1 offset-6">
-                    <input class="btn btn-success" type="submit" name="refresh" value="Refresh Page">
+                    <%= "<input class=\"btn " + (theme.equals("blue") ? "btn-primary" : "btn-success") + "\" type=\"submit\" name=\"refresh\" value=\"Refresh Page\">" %>
                 </div>
             </div>
         </form>
