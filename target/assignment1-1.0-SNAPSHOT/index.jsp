@@ -3,6 +3,12 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 
 <%
+    String referer_error = (String)session.getAttribute("referer-error");
+    session.removeAttribute("referer-error");
+
+    String format_error = (String)session.getAttribute("format-error");
+    session.removeAttribute("format-error");
+
     String theme = (String)session.getAttribute("theme");
     if (theme == null)
         theme = "blue";
@@ -24,35 +30,16 @@
 </head>
 
 <body>
-    <%
-        String referer_error = (String)session.getAttribute("referer-error");
-        if(referer_error != null) {
-    %>
     <script type="text/javascript">
-        alert("<%= referer_error %>");
+        <%= referer_error != null ? "alert(\"" + referer_error + "\");" : "" %>
+        <%=  format_error != null ? "alert(\"" +  format_error + "\");" : "" %>
     </script>
-    <%
-            session.removeAttribute("referer-error");
-        }
-    %>
-
-    <%
-        String format_error = (String)session.getAttribute("format-error");
-        if(format_error != null) {
-    %>
-            <script type="text/javascript">
-                alert("<%= format_error %>");
-            </script>
-    <%
-            session.removeAttribute("format_error");
-        }
-    %>
 
     <form action="A1Servlet" method="POST" class="switch-theme-form">
         <input class="btn btn-secondary" type="submit" name="switch-theme" value="Switch Theme">
-    </form>
 
-    <img src="logo.jpg" alt="Logo">
+        <img src="logo.jpg" width="32px" height="32px" alt="Logo" class="logo">
+    </form>
 
     <div class="wrapper">
         <form action="A1Servlet" method="GET" class="get-post-form">
