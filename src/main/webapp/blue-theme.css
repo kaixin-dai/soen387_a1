@@ -19,7 +19,8 @@
 }
 
 .chat-body {
-    background-color: #00c6ff;
+    color: white;
+    background-color: #0099ff;
     border-radius: 0.25rem;
     padding: 6px 12px;
 }

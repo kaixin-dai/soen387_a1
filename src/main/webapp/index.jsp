@@ -58,6 +58,8 @@
         <input class="btn btn-secondary" type="submit" name="switch-theme" value="Switch Theme">
     </form>
 
+    <img src="logo.jpg" alt="Logo">
+
     <div class="wrapper">
         <form action="A1Servlet" method="GET" class="get-post-form">
             <div class="form-row">
