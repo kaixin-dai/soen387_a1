@@ -13,7 +13,20 @@
     <title>index</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="chat.css">
+
+    <%
+        String theme = (String)session.getAttribute("theme");
+        if (theme == null || theme.equals("blue")) {
+    %>
+        <link rel="stylesheet" href="blue-theme.css">
+    <%
+        }
+        else {
+    %>
+        <link rel="stylesheet" href="green-theme.css">
+    <%
+        }
+    %>
 </head>
 
 <body>
@@ -41,8 +54,12 @@
         }
     %>
 
+    <form action="A1Servlet" method="POST" class="switch-theme-form">
+        <input class="btn btn-secondary" type="submit" name="switch-theme" value="Switch Theme">
+    </form>
+
     <div class="wrapper">
-        <form action="A1Servlet" method="GET">
+        <form action="A1Servlet" method="GET" class="get-post-form">
             <div class="form-row">
                 <div class="form-group col-4">
                     <label for="download-from" class="sr-only">From</label>
@@ -65,7 +82,7 @@
             </div>
         </form>
 
-        <form action="A1Servlet" method="POST">
+        <form action="A1Servlet" method="POST" class="get-post-form">
             <div class="form-row">
                 <div class="form-group col-5">
                     <label for="clear-from" class="sr-only">From</label>
@@ -93,7 +110,7 @@
             </c:forEach>
         </ul>
 
-        <form action="A1Servlet" method="POST">
+        <form action="A1Servlet" method="POST" class="get-post-form">
             <div class="form-row">
                 <div class="form-group col-12">
                     <label for="message" class="sr-only">Type a message</label>

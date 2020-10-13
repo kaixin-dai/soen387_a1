@@ -51,6 +51,10 @@ public class A1Servlet extends HttpServlet {
         if (refresh != null)
             refresh(request, response);
 
+        String switch_theme = request.getParameter("switch-theme");
+        if (switch_theme != null)
+            switchTheme(request, response);
+
         response.setHeader("Expires", "0");
     }
 
@@ -123,6 +127,20 @@ public class A1Servlet extends HttpServlet {
     }
 
     private void refresh(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("messages", ChatManager.ListMessages());
+
+        request.getRequestDispatcher("/").forward(request,response);
+    }
+
+    private void switchTheme(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+
+        String theme = (String)session.getAttribute("theme");
+        if (theme == null || theme.equals("blue"))
+            session.setAttribute("theme", "green");
+        else
+            session.setAttribute("theme", "blue");
+
         request.setAttribute("messages", ChatManager.ListMessages());
 
         request.getRequestDispatcher("/").forward(request,response);
