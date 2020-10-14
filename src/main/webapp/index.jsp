@@ -37,8 +37,7 @@
 
     <form action="A1Servlet" method="POST" class="switch-theme-form">
         <input class="btn btn-secondary" type="submit" name="switch-theme" value="Switch Theme">
-
-        <img src="logo.jpg" width="5%" height="10%" alt="Logo" class="logo">
+        <%= "<img src=\""+(theme.equals("blue") ? "crlogo.png" : "logo.png") + "\" width=\"5%\" height=\"10%\" alt=\"Logo\" class=\"logo\"> "%>
     </form>
 
     <div class="wrapper">
