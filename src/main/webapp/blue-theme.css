@@ -13,6 +13,7 @@ body{
 }
 
 .chat-area {
+    color: white;
     height: 350px;
     overflow-y: auto;
     border-top: solid gray;
